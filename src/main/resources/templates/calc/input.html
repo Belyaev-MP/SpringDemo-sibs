@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}">Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+
+<body>
+	<h1 th:text="${title}">Калькулятор</h1>
+	
+	<form action="#" th:action="@{/calc/result}" th:method="get">
+		<input type="text" name="aValue">
+		<select name="op">
+			<option th:each="item: ${op.entrySet}" th:value="${item.value}" th:text="${item.key}"></option>
+		</select>
+		<input type="text" name="bValue">
+		<div>
+			<input type="submit" value="Send" />
+		</div>
+	</form>
+	
+</body>
+
+</html>
