@@ -3,6 +3,7 @@ package my.self.demo.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,19 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import my.self.demo.domain.CalculatorService;
+
 @Controller
 @RequestMapping("/calc")
 public class CalculatorController {
 
+	@Autowired
+	private CalculatorService service;
+	
 	@GetMapping("/input")
 	public String inputPage(Model model) {
 		model.addAttribute("title", "Калькулятор");
 		
-		Map<String, String> op = new HashMap<>();
-		op.put("+", "plus");
-		op.put("-", "minus");
-		
-		model.addAttribute("op", op);
+		model.addAttribute("op", service.getOperationsMap());
 		
 		return "calc/input.html";
 	}
@@ -35,22 +37,7 @@ public class CalculatorController {
 			@RequestParam(name = "op") String op,
 			Model model) {
 		model.addAttribute("title", "Калькулятор - результат");
-		
-		Integer res = null;
-		
-		switch (op) {
-		case "plus":
-			res = a+b;
-			break;
-
-		case "minus":
-			res = a - b;
-			break;
-		default:
-			break;
-		}
-		
-		model.addAttribute("res", res);
+		model.addAttribute("res", service.getResult(a, b, op));
 		
 		return "calc/result.html";
 	}
