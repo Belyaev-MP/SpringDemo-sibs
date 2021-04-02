@@ -37,7 +37,7 @@ public class CarController {
 		System.out.println( car.isPresent() ? car.get() : "Not found" );
 		
 		model.addObject("cars", carModelDataRepository.findAllByBrandName("Lada"));
-		model.addObject("title", "Список автомобилей (демонстрация Spring JDBC)");
+		model.addObject("title", "Список автомобилей (демонстрация Spring Data)");
 		
 		model.setViewName("car/list-data");
 		

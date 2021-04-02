@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
 
 <head>
-<meta charset="UTF-8">
-<title th:text="${title}">Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+	<meta charset="UTF-8">
+	<title data-th-text="${title}">Insert title here</title>
 </head>
 
 <body>
-	<h1 th:text="${title}">Hello world!</h1>
-	
-	<a href="/calc/input">Калькулятор</a>
+	<th:block layout:fragment="content">
+		<h1 th:text="${title}">Hello, world!</h1>
+		
+		<ul>
+			<li><a th:href="@{/calc/input}">Калькулятор</a>
+			<li><a th:href="@{/car/list}">Демонстрация работы с БД</a>
+			<li><a th:href="@{/car/list-data}">Демонстрация работы с БД Spring Data</a>
+		</ul>
+	</th:block>
 </body>
 
 </html>
