@@ -24,4 +24,9 @@ public class CarServiceDomain implements CarService {
 		return (carId != null) ? storage.loadById(carId) : null;
 	}
 
+	@Override
+	public List<CarModel> getCarsByNameLike(String name) {
+		return storage.getAllCarModels(name);
+	}
+	
 }
