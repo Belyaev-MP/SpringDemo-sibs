@@ -6,11 +6,13 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import my.self.demo.domain.mail.MailClient;
 import my.self.demo.domain.model.CarBrand;
 import my.self.demo.domain.model.CarModel;
 
@@ -18,6 +20,9 @@ import my.self.demo.domain.model.CarModel;
 @RequestMapping("/demo")
 public class DemoController {
 
+	@Autowired
+	private MailClient mail;
+	
 	@GetMapping("/set")
 	public String set(HttpServletResponse response) {
 		Cookie cookie = new Cookie("ban", "hjsd#4");
@@ -48,4 +53,9 @@ public class DemoController {
 		return "Read car " + (CarModel)session.getAttribute("car");
 	}
 	
+	@GetMapping("/mail-send")
+	public String mailSend() {
+		mail.sendTestEmail("test@test.tt");
+		return "Ok";
+	}
 }
